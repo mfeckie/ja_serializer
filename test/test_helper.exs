@@ -1,3 +1,5 @@
+Code.require_file("support/mix_helper.exs", __DIR__)
+
 ExUnit.start()
 
 
@@ -28,3 +30,4 @@ end
 defmodule TestModel.Tag do
   defstruct [:id, :tag]
 end
+
