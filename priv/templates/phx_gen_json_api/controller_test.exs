@@ -40,8 +40,7 @@ defmodule <%= inspect context.web_module %>.<%= inspect schema.alias %>Controlle
       }
     }
 
-    assert json_response(conn, 201)["data"]["attributes"] == %{
-    <%= for param <- friendly_create_params do %>
+    assert json_response(conn, 201)["data"]["attributes"] == %{<%= for param <- friendly_create_params do %>
       <%= param %><% end %>
     }
   end

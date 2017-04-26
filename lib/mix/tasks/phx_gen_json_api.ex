@@ -90,9 +90,13 @@ if Code.ensure_loaded?(Phoenix) do
     defp to_template_string({{_, _} = map, _index}), do: to_template_string(map)
     defp to_template_string({key, value}) do
       kebab = to_kebab_attrs(key)
-      ~s("#{kebab}" => #{inspect value})
+      ~s("#{kebab}" => #{to_value(value)})
     end
 
+
     defp to_kebab_attrs(key), do: String.replace("#{key}", "_", "-")
+    defp to_value(%Date{} = date), do: ~s("#{date}")
+    defp to_value(%NaiveDateTime{} = datetime), do: ~s("#{NaiveDateTime.to_iso8601(datetime)}")
+    defp to_value(any), do: inspect(any)
   end
 end
