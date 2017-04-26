@@ -32,7 +32,13 @@ if Code.ensure_loaded?(Phoenix) do
       {context, schema} = Gen.Context.build(args)
       friendly_create_params = for_friendly_attributes(schema.params.create)
       friendly_update_params = for_friendly_attributes(schema.params.update)
-      binding = [context: context, schema: schema, friendly_create_params: friendly_create_params, friendly_update_params: friendly_update_params]
+
+      binding = [
+        context: context,
+        schema: schema,
+        friendly_create_params: friendly_create_params,
+        friendly_update_params: friendly_update_params
+      ]
 
       context
       |> copy_new_files(paths(), binding)
@@ -83,7 +89,10 @@ if Code.ensure_loaded?(Phoenix) do
     defp to_template_string({{_, _} = map, index}) when index != 0, do: "#{to_template_string(map)},"
     defp to_template_string({{_, _} = map, _index}), do: to_template_string(map)
     defp to_template_string({key, value}) do
-      ~s("#{key}" => #{inspect value})
+      kebab = to_kebab_attrs(key)
+      ~s("#{kebab}" => #{inspect value})
     end
+
+    defp to_kebab_attrs(key), do: String.replace("#{key}", "_", "-")
   end
 end
