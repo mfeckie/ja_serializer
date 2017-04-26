@@ -8,7 +8,7 @@ defmodule <%= inspect context.web_module %>.FallbackController do
   def call(conn, {:error, %Ecto.Changeset{} = changeset}) do
     conn
     |> put_status(:unprocessable_entity)
-    |> render(<%= inspect context.web_module %>.ChangesetView, "error.json", changeset: changeset)
+    |> render(<%= inspect context.web_module %>.ChangesetView, "error.json-api", changeset: changeset)
   end
 
   def call(conn, {:error, :not_found}) do
