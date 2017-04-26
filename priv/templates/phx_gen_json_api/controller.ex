@@ -26,7 +26,7 @@ defmodule <%= inspect context.web_module %>.<%= inspect schema.alias %>Controlle
     render(conn, "show.json-api", data: <%= schema.singular %>)
   end
 
-  def update(conn, %{"id" => id, "data" => data = %{"type" => <%= schema.singular %>, "attributes" => _<%= schema.singular%>_params}}) do
+  def update(conn, %{"id" => id, "data" => data = %{"type" => <%= inspect schema.singular %>, "attributes" => _<%= schema.singular%>_params}}) do
     <%= schema.singular %> = <%= inspect context.alias %>.get_<%= schema.singular %>!(id)
 
     with {:ok, %<%= inspect schema.alias %>{} = <%= schema.singular %>} <- <%= inspect context.alias %>.update_<%= schema.singular %>(<%= schema.singular %>, Params.to_attributes(data)) do
